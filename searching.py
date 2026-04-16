@@ -7,6 +7,7 @@ import random
 import matplotlib.pyplot as plt
 
 
+
 cwd_path = os.getcwd()
 
 
@@ -107,6 +108,19 @@ def time_graph(sizes):
     plt.show()
     # grafy odpovidaji teoretickym zavislostem, nekdy trochu "uskoci" graf linearni zavislosti
 
+def pattern_search(dna_seq, pattern):
+    pattern_length = len(pattern)
+    for i in range(len(dna_seq)):
+
+        if dna_seq[i:i+pattern_length] == pattern:
+            new_list = [i, i+pattern_length]
+            return tuple(new_list)
+        if i == (len(dna_seq) - pattern_length):
+            break
+    return None
+
+
+
 def main():
     sequence = read_data("sequential.json", "unordered_numbers")
     searched_num = 48
@@ -114,6 +128,9 @@ def main():
     ordered_seq = read_data("sequential.json", "ordered_numbers")
     binary_search(ordered_seq, searched_num)
     sizes = [100, 500, 1000, 5000, 10000]
-    time_graph(sizes)
+    # time_graph(sizes)
+    pattern = "ATA"
+    dna_seq = read_data("sequential.json", "dna_sequence")
+    print(pattern_search(dna_seq, pattern))
 if __name__ == '__main__':
     main()
