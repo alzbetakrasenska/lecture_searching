@@ -1,6 +1,7 @@
 import os
 import json
-
+import math
+from math import floor
 
 cwd_path = os.getcwd()
 
@@ -32,14 +33,27 @@ def linear_search(sequence, searched_num):
             seq_dict["positions"].append(i)
     return seq_dict
 
+def binary_searched(ordered_seq, searched_num):
+    first_index = 0
+    last_index = len(ordered_seq) - 1
+    while len(ordered_seq) >= 1:
+        middle_index = int(round((first_index + last_index) / 2, 2))
+        if ordered_seq[middle_index] == searched_num:
+            return middle_index
+        elif ordered_seq[middle_index] < searched_num:
+            first_index = middle_index + 1
+        else:
+            last_index = middle_index - 1
+    return None
 
 
 
 
 def main():
     sequence = read_data("sequential.json", "unordered_numbers")
-    searched_num = 0
-    print(linear_search(sequence, searched_num))
+    searched_num = 120
 
+    ordered_seq = read_data("sequential.json", "ordered_numbers")
+    print(binary_searched(ordered_seq, searched_num))
 if __name__ == '__main__':
     main()
